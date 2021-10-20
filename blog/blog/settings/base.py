@@ -19,6 +19,7 @@ BASE_DIR = Path(__file__).ancestor(3)
 with open("secret.json") as f:
     secret = json.loads(f.read())
 
+
 def get_secret(secret_name, secrets=secret):
     try:
         return secrets[secret_name]
@@ -48,9 +49,14 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     'applications.users',
     'applications.home',
+    'applications.favoritos',
+    'applications.entradas',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'ckeditor',
+    'ckeditor_uploader'
+]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -77,6 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'applications.processors.home_contact',
             ],
         },
     },
