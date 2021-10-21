@@ -28,7 +28,7 @@
                     <div class="card" style="width: 100%;">
                         <img src="{{ entrada.image.url }}">
                         <div class="card-section">
-                            <h4>{{ entrada.title }}</h4>
+                            <h4><a href="{% url 'entradas_app:entry-detail' entrada.slug %}">{{entrada.title}}</a></h4>
                             <p>{{ entrada.resume }}</p>
                         </div>
                     </div>

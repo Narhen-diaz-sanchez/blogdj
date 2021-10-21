@@ -17,8 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+# seo
+from django.contrib.sitemaps.views import sitemap
+from applications.home.sitemap import (
+    EntrySitemap,
+    Sitemap,
+)
 
-urlpatterns = [
+urlpatterns_main = [
     path('admin/', admin.site.urls),
     path('', include('applications.users.urls')),
     path('', include('applications.home.urls')),
@@ -28,3 +34,20 @@ urlpatterns = [
     #
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Objeto sitemap que gernera el xml
+sitemaps = {
+    'site': Sitemap(
+        [
+            'home_app:index'
+        ]
+    ),
+    'entradas': EntrySitemap
+}
+
+urlpatterns_sitemap = [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+]
+
+urlpatterns = urlpatterns_main + urlpatterns_sitemap
